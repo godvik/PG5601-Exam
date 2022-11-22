@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		979AFA3A292CFBEB00FA664F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979AFA39292CFBEB00FA664F /* MainView.swift */; };
+		979AFA3C292CFE4600FA664F /* GroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979AFA3B292CFE4600FA664F /* GroupView.swift */; };
+		979AFA3E292CFE4E00FA664F /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979AFA3D292CFE4E00FA664F /* LogView.swift */; };
 		97CB2AE3292B825500CEE17C /* PG5601App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CB2AE2292B825500CEE17C /* PG5601App.swift */; };
 		97CB2AE5292B825500CEE17C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CB2AE4292B825500CEE17C /* ContentView.swift */; };
 		97CB2AE7292B825600CEE17C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97CB2AE6292B825600CEE17C /* Assets.xcassets */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		979AFA39292CFBEB00FA664F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		979AFA3B292CFE4600FA664F /* GroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupView.swift; sourceTree = "<group>"; };
+		979AFA3D292CFE4E00FA664F /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
 		97CB2ADF292B825500CEE17C /* PG5601.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PG5601.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97CB2AE2292B825500CEE17C /* PG5601App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PG5601App.swift; sourceTree = "<group>"; };
 		97CB2AE4292B825500CEE17C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -91,6 +97,9 @@
 				97CB2AF4292B861800CEE17C /* JsonView.swift */,
 				97CB2AF6292B86CB00CEE17C /* FruitView.swift */,
 				97CB2AF8292B966500CEE17C /* FruitDetailView.swift */,
+				979AFA39292CFBEB00FA664F /* MainView.swift */,
+				979AFA3B292CFE4600FA664F /* GroupView.swift */,
+				979AFA3D292CFE4E00FA664F /* LogView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -166,10 +175,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				97CB2AE5292B825500CEE17C /* ContentView.swift in Sources */,
+				979AFA3A292CFBEB00FA664F /* MainView.swift in Sources */,
+				979AFA3C292CFE4600FA664F /* GroupView.swift in Sources */,
 				97CB2AE3292B825500CEE17C /* PG5601App.swift in Sources */,
 				97CB2AF5292B861800CEE17C /* JsonView.swift in Sources */,
 				97CB2AF7292B86CB00CEE17C /* FruitView.swift in Sources */,
 				97CB2AF9292B966500CEE17C /* FruitDetailView.swift in Sources */,
+				979AFA3E292CFE4E00FA664F /* LogView.swift in Sources */,
 				97CB2AF3292B83FB00CEE17C /* DataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

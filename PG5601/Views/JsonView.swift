@@ -14,6 +14,7 @@ struct JsonView: View {
 				await datamodel.loadData()
 			}
 			.navigationTitle("Fruit")
+			.navigationBarTitleDisplayMode(.inline)
 		}
 	}
 }
