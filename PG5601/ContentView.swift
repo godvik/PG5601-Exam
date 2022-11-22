@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  PG5601
-//
-//  Created by Vegard Kristoffer Godvik on 21/11/2022.
-//
-
 import SwiftUI
 
 struct ContentView: View {
