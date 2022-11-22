@@ -4,12 +4,27 @@ struct FruitDetailView: View {
 
     var fruit: Fruit
 //	@State private var showAnimation = false
+	@State private var switchColor = Color(.white)
 
     init(_ fruit: Fruit) {
         self.fruit = fruit
     }
 
     var body: some View {
+		ZStack{
+			Rectangle()
+				.foregroundColor(switchColor)
+				.task {
+					if(fruit.nutritions.sugar > 10) {
+						withAnimation(Animation.easeInOut(duration: 2).repeatForever()){
+							switchColor = Color(.white)
+						}
+						withAnimation(Animation.easeInOut(duration: 4).repeatForever()){
+							switchColor = Color(.red)
+						}
+					}
+				}
+
         VStack {
             HStack {
                 Text("Name")
@@ -56,10 +71,13 @@ struct FruitDetailView: View {
                 Spacer()
                 Text("\(fruit.nutritions.sugar)")
             }
+
+
         }
                 .padding()
                 .navigationTitle(fruit.name)
-				.background(setBackgroundColor())
+
+		}
 
     }
 	func setBackgroundColor() -> Color {

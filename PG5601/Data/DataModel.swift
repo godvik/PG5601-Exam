@@ -3,7 +3,7 @@ import SwiftUI
 
 let url = "https://fruityvice.com/api/fruit/all"
 
-final class DataModel: ObservableObject {
+@MainActor final class DataModel: ObservableObject {
 	@Published var Fruits: [Fruit] = []
 
 
@@ -14,7 +14,6 @@ final class DataModel: ObservableObject {
 		do {
 			let (data, _) = try await URLSession.shared.data(from: apiUrl)
 			Fruits = try JSONDecoder().decode([Fruit].self, from: data)
-	
 		}
 		catch {
 			fatalError("Cannot decode content from \n\n\(url)")
