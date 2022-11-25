@@ -5,7 +5,7 @@ struct ListAllView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(datamodel.Fruits) {
+                ForEach(datamodel.Fruits.sorted(by: { $0.id < $1.id })) {
                     fruit in
                     FruitView(fruit)
                 }
