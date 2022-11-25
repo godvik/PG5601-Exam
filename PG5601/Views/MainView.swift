@@ -7,7 +7,7 @@ struct MainView: View {
             ListAllView().tabItem() {
                 Label("Fruits", systemImage: "house.fill")
             }
-            ListGroupView().tabItem() {
+            ListGroupsView().tabItem() {
                 Label("Group", systemImage: "rectangle.3.group.fill")
             }
             LogView().tabItem({

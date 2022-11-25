@@ -1,34 +1,27 @@
 import SwiftUI
 
-struct ListGenusView: View {
-
-    var genusName: String
-
-    init(_ text: String) {
-        self.genusName = text
-    }
-
+struct ListAllView: View {
     @EnvironmentObject var datamodel: DataModel
     var body: some View {
         NavigationView {
             List {
-                ForEach(datamodel.Genus) {
+                ForEach(datamodel.Fruits) {
                     fruit in
                     FruitView(fruit)
                 }
             }
                     .listStyle(.plain)
                     .task {
-                        await datamodel.loadGenusData(genus: genusName)
+                        await datamodel.loadData(endpoint: "all")
                     }
-                    .navigationTitle(genusName)
+                    .navigationTitle("Fruit")
                     .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
-struct ListGenusView_Previews: PreviewProvider {
+struct ListAllView_Previews: PreviewProvider {
     static var previews: some View {
-        ListGenusView(text).environmentObject(DataModel())
+        ListAllView().environmentObject(DataModel())
     }
 }

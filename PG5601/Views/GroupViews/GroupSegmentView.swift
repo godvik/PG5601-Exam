@@ -1,17 +1,18 @@
 import SwiftUI
 
-struct GroupGenusView: View {
+struct GroupSegmentView: View {
 
     var text: String
+	var groupType: String
 
-    init(_ text: String) {
+    init(_ text: String, _ groupType: String) {
         self.text = text
+        self.groupType = groupType
     }
-
 
     var body: some View {
         VStack(alignment: .leading) {
-            NavigationLink(destination: ListGenusView(text)) {
+			NavigationLink(destination: ListGroupView(text, groupType)) {
                 HStack {
                     Text(text)
                             .foregroundColor(Color.black)
@@ -27,8 +28,8 @@ struct GroupGenusView: View {
     }
 }
 
-struct GroupGenusView_Previews: PreviewProvider {
+struct GroupSegmentView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupGenusView(text)
+        GroupSegmentView(text, "")
     }
 }

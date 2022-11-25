@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ListGroupView: View {
+struct ListGroupsView: View {
     @EnvironmentObject var datamodel: DataModel
     @State private var segment = 0
     @State private var families: [String] = []
@@ -28,31 +28,31 @@ struct ListGroupView: View {
                             Spacer()
                             ForEach(families, id: \.self) {
                                 family in
-                                GroupFamilyView(family)
+                                GroupSegmentView(family, "family")
                             }
                         case 1:
                             Spacer()
                             ForEach(genus, id: \.self) {
                                 genus in
-                                GroupGenusView(genus)
+                                GroupSegmentView(genus, "genus")
 
                             }
                         case 2:
                             Spacer()
                             ForEach(order, id: \.self) {
                                 order in
-                                GroupOrderView(order)
+                                GroupSegmentView(order, "order")
                             }
                         default:
                             Spacer()
                             ForEach(families, id: \.self) {
                                 family in
-                                GroupFamilyView(family)
+                                GroupSegmentView(family, "family")
                             }
                         }
                     }
                             .task {
-                                await datamodel.loadData()
+                                await datamodel.loadData(endpoint: "all")
                                 separate()
                             }
                 }
@@ -79,8 +79,8 @@ struct ListGroupView: View {
     }
 }
 
-struct ListGroupView_Previews: PreviewProvider {
+struct ListGroupsView_Previews: PreviewProvider {
     static var previews: some View {
-        ListGroupView().environmentObject(DataModel())
+        ListGroupsView().environmentObject(DataModel())
     }
 }
