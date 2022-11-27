@@ -2,27 +2,58 @@ import SwiftUI
 
 struct FruitDetailView: View {
 
-	var fruit: Fruit
+    @State private var sugar = ""
+    var fruit: Fruit
+	@FetchRequest var fetchRequest: FetchedResults<Consumption>
+
     init(_ fruit: Fruit) {
         self.fruit = fruit
+		_fetchRequest = FetchRequest<Consumption>(sortDescriptors: [], predicate: NSPredicate(format: "name == %@", fruit.name))
     }
+
 
     var body: some View {
         ZStack {
-			AnimatedBackgroundView(fruit)
+            AnimatedBackgroundView(fruit)
             VStack {
                 Divider()
                 Spacer()
             }
-			FruitInformationView(fruit)
-			Button("Eat fruit", action: addFruit)
-				.buttonStyle(.bordered)
+            VStack {
+				Spacer()
+                Text("You ate \(fetchRequest.filter({ $0.date! > Date().addingTimeInterval(-60*60*24*30) }).count) \(fruit.name)s in the last 30 days")
+				Spacer()
+                Group {
+                    FruityView(name: "Name", property: fruit.name)
+                    FruityView(name: "Family", property: fruit.family)
+                    FruityView(name: "Order", property: fruit.order)
+                    FruityView(name: "Genus", property: fruit.genus)
+                    FruityView(name: "Carbohydrates", property: String(format: "%.1f", fruit.nutritions.carbohydrates))
+                    FruityView(name: "Protein", property: String(format: "%.1f", fruit.nutritions.protein))
+                    FruityView(name: "Fat", property: String(format: "%.1f", fruit.nutritions.fat))
+                    FruityView(name: "Calories", property: String(fruit.nutritions.calories))
+                    FruityView(name: "Sugar", property: String(format: "%.1f", fruit.nutritions.sugar))
+					}
+				Spacer()
+				HStack {
+					Text(sugar).task({
+						if (fruit.nutritions.sugar > 10) {
+							sugar = "Warning! This fruit contains high amounts of sugar!"
+						}
+					})
+				}
+
+					EatFruitButton(fruit)
+            }
+			.padding()
+			.navigationTitle(fruit.name)
+			.navigationBarTitleDisplayMode(.inline)
         }
     }
 
-	func addFruit() {
 
-	}
+
+
 }
 
 
@@ -32,98 +63,52 @@ struct FruitDetailView_Previews: PreviewProvider {
     }
 }
 
-struct FruitInformationView: View {
+struct EatFruitButton: View {
 	var fruit: Fruit
+
 	init(_ fruit: Fruit) {
 		self.fruit = fruit
 	}
-	@State private var sugar = ""
 	var body: some View {
-		VStack {
-			Group {
-				HStack {
-					Text("Name")
-					Spacer()
-					Text(fruit.name)
-				}
-				HStack {
-					Text("Family")
-					Spacer()
-					Text(fruit.family)
-				}
-				HStack {
-					Text("Order")
-					Spacer()
-					Text(fruit.order)
-				}
-				HStack {
-					Text("Genus")
-					Spacer()
-					Text(fruit.genus)
-				}
-				HStack {
-					Text("Carbohydrates")
-					Spacer()
-					Text("\(fruit.nutritions.carbohydrates)")
-				}
-				HStack {
-					Text("Protein")
-					Spacer()
-					Text("\(fruit.nutritions.protein)")
-				}
-				HStack {
-					Text("Fat")
-					Spacer()
-					Text("\(fruit.nutritions.fat)")
-				}
-				HStack {
-					Text("Calories")
-					Spacer()
-					Text("\(fruit.nutritions.calories)")
-				}
-				HStack {
-					Text("Sugar")
-					Spacer()
-					Text("\(fruit.nutritions.sugar)")
-				}
-
-			}
-			Spacer()
-			HStack {
-				Text(sugar).task({
-					if (fruit.nutritions.sugar > 10) {
-						sugar = "Warning! This fruit contains high amounts of sugar!"
-					}
-				})
-			}
-			Spacer()
-		}
-		.padding()
-		.navigationTitle(fruit.name)
-		.navigationBarTitleDisplayMode(.inline)
+		Spacer()
+		NavigationLink("Eat Fruit", destination: EatFruitView(fruit))
+			.buttonStyle(.bordered)
 	}
-	
+
+}
+
+struct FruityView: View {
+    var name: String
+    var property: String
+    var body: some View {
+        HStack {
+            Text(name)
+            Spacer()
+            Text(property)
+        }
+    }
 }
 
 struct AnimatedBackgroundView: View {
-	var fruit: Fruit
-	init(_ fruit: Fruit) {
-		self.fruit = fruit
-	}
-	@State private var switchColor = Color(.white)
-	var body: some View {
-		Rectangle()
-			.foregroundColor(switchColor)
-			.ignoresSafeArea()
-			.task {
-				if (fruit.nutritions.sugar > 10) {
-					withAnimation(Animation.easeInOut(duration: 2).repeatForever()) {
-						switchColor = Color(.white)
-					}
-					withAnimation(Animation.easeInOut(duration: 4).repeatForever()) {
-						switchColor = Color(.red)
-					}
-				}
-			}
-	}
+    var fruit: Fruit
+
+    init(_ fruit: Fruit) {
+        self.fruit = fruit
+    }
+
+    @State private var switchColor = Color(.white)
+    var body: some View {
+        Rectangle()
+                .foregroundColor(switchColor)
+                .task {
+                    if (fruit.nutritions.sugar > 10) {
+                        withAnimation(Animation.easeInOut(duration: 2).repeatForever()) {
+                            switchColor = Color(.white)
+                        }
+                        withAnimation(Animation.easeInOut(duration: 4).repeatForever()) {
+                            switchColor = Color(.red)
+                        }
+                    }
+                }
+    }
 }
