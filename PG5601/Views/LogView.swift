@@ -21,24 +21,24 @@ struct LogView: View {
 						HStack {
 							Text("Calories")
 							Spacer()
-							Text("\(consumedFruits.filter({ $0.date?.formatted(.dateTime.day().month(.wide).year()) == date }).reduce(0, { $0 + ($1.calories ) }).formatted())")
+							Text("\(consumedFruits.filter({ $0.date?.formatted(.dateTime.day().month(.wide).year()) == date }).reduce(0, { $0 + ($1.calories ) }).formatted())kcal")
 						}
 
 						HStack {
 							Text("Carbohydrates")
 							Spacer()
-							Text("\(consumedFruits.filter({ $0.date?.formatted(.dateTime.day().month(.wide).year()) == date }).reduce(0, { $0 + ($1.carbohydrates ) }).formatted())")
+							Text("\(consumedFruits.filter({ $0.date?.formatted(.dateTime.day().month(.wide).year()) == date }).reduce(0, { $0 + ($1.carbohydrates ) }).formatted())g")
 						}
 
 						HStack {
 							Text("Protein")
 							Spacer()
-							Text("\(consumedFruits.filter({ $0.date?.formatted(.dateTime.day().month(.wide).year()) == date }).reduce(0, { $0 + ($1.protein ) }).formatted())")
+							Text("\(consumedFruits.filter({ $0.date?.formatted(.dateTime.day().month(.wide).year()) == date }).reduce(0, { $0 + ($1.protein ) }).formatted())g")
 						}
 						HStack {
 							Text("Sugar")
 							Spacer()
-							Text("\(consumedFruits.filter({ $0.date?.formatted(.dateTime.day().month(.wide).year()) == date }).reduce(0, { $0 + ($1.sugar ) }).formatted())")
+							Text("\(consumedFruits.filter({ $0.date?.formatted(.dateTime.day().month(.wide).year()) == date }).reduce(0, { $0 + ($1.sugar ) }).formatted())g")
 						}
 					}
 

@@ -28,6 +28,7 @@
 		97086BF0293257B800E03D63 /* FruitDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FruitDatabase.xcdatamodel; sourceTree = "<group>"; };
 		97110E2229311AF7007BD6D5 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		97110E2729324432007BD6D5 /* EatFruitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EatFruitView.swift; sourceTree = "<group>"; };
+		974C133A29342B6A00AF6CF0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		979AFA39292CFBEB00FA664F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		979AFA3B292CFE4600FA664F /* ListGroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGroupsView.swift; sourceTree = "<group>"; };
 		979AFA3D292CFE4E00FA664F /* LogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogView.swift; sourceTree = "<group>"; };
@@ -88,6 +89,7 @@
 				97CB2AE2292B825500CEE17C /* PG5601App.swift */,
 				97CB2AE6292B825600CEE17C /* Assets.xcassets */,
 				97CB2AE8292B825600CEE17C /* Preview Content */,
+				974C133A29342B6A00AF6CF0 /* README.md */,
 			);
 			path = PG5601;
 			sourceTree = "<group>";

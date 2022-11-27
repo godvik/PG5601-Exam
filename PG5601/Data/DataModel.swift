@@ -37,6 +37,34 @@ func generateColorFor(text: String) -> UIColor {
 	return color
 }
 
+func fruitEmoji(fruitName: String) -> String {
+	let fruitEmojis = [
+		"Apple": "🍎",
+		"Avocado": "🥑",
+		"GreenApple": "🍏",
+		"Blueberry": "🫐",
+		"Melon": "🍈",
+		"Lemon": "🍋",
+		"Tomato": "🍅",
+		"Banana": "🍌",
+		"Orange": "🍊",
+		"Pear": "🍐",
+		"Pineapple": "🍍",
+		"Strawberry": "🍓",
+		"Watermelon": "🍉",
+		"Grape": "🍇",
+		"Cherry": "🍒",
+		"Pomegranate": "🍐",
+		"Mango": "🥭",
+		"Kiwi": "🥝",]
+
+	if(fruitEmojis[fruitName] != nil) {
+		return fruitEmojis[fruitName]!
+	} else {
+		return "💯"
+	}
+}
+
 
 
 struct Fruit: Decodable, Identifiable {

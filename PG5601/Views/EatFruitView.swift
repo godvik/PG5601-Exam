@@ -3,6 +3,7 @@ import SwiftUI
 struct EatFruitView: View {
 	@State private var date = Date()
 	@State private var shouldNavigate = false
+	@Environment(\.presentationMode) var presentationMode
 	@Environment(\.managedObjectContext) var moc
 	var fruit: Fruit
 
@@ -11,33 +12,46 @@ struct EatFruitView: View {
 	}
     var body: some View {
 		VStack {
-			Spacer()
-			Group{
-				FruityView(name: "Name", property: fruit.name)
-				FruityView(name: "Family", property: fruit.family)
-				FruityView(name: "Order", property: fruit.order)
-				FruityView(name: "Genus", property: fruit.genus)
-				FruityView(name: "Carbohydrates", property: String(format: "%.1f", fruit.nutritions.carbohydrates))
-				FruityView(name: "Protein", property: String(format: "%.1f", fruit.nutritions.protein))
-				FruityView(name: "Fat", property: String(format: "%.1f", fruit.nutritions.fat))
-				FruityView(name: "Calories", property: String(fruit.nutritions.calories))
-				FruityView(name: "Sugar", property: String(format: "%.1f", fruit.nutritions.sugar))
-			}
 
-			HStack{
-				DatePicker(
-						"Time of consumption",
-						selection: $date,
-						displayedComponents: [.date, .hourAndMinute]
-					)
-				.datePickerStyle(.compact)
-				.padding()
+			List {
+				Section("Categories") {
+					FruityView(name: "Family", nutrition: fruit.family)
+					FruityView(name: "Order", nutrition: fruit.order)
+					FruityView(name: "Genus", nutrition: fruit.genus)
+				}
+				Section("Nutrition per 100 grams") {
+					FruityView(name: "Carbohydrates", nutrition: fruit.nutritions.carbohydrates.formatted(), property: "g")
+					FruityView(name: "Protein", nutrition: fruit.nutritions.protein.formatted(), property: "g")
+					FruityView(name: "Fat", nutrition: fruit.nutritions.fat.formatted(), property: "g")
+					FruityView(name: "Calories", nutrition: fruit.nutritions.calories.formatted(), property: "kcal")
+					FruityView(name: "Sugar", nutrition: fruit.nutritions.sugar.formatted(), property: "g")
+				}
 			}
+					.scrollContentBackground(.hidden)
+
+			VStack {
+				Text("When did you eat the fruit?").font(.title3).padding()
+				HStack{
+					Spacer()
+					DatePicker(
+							"",
+							selection: $date,
+							displayedComponents: [.date, .hourAndMinute]
+						)
+					.labelsHidden()
+					.datePickerStyle(.compact)
+					Spacer()
+
+				}
+			}.padding()
 			Spacer()
 			HStack {
-				Button("Cancel",  role: .destructive, action: navigateBack )
+				Button("Cancel",  role: .destructive, action: { self.presentationMode.wrappedValue.dismiss() } )
 					.buttonStyle(.bordered)
-				Button("Log fruit", action: eatFruit)
+
+				Button(action: eatFruit) {
+					Label("Log fruit", systemImage: "calendar.badge.plus")
+				}
 					.buttonStyle(.bordered)
 			}
 
@@ -63,8 +77,6 @@ struct EatFruitView: View {
 		newConsumption.calories = Int16(fruit.nutritions.calories)
 		newConsumption.date = date
 		try? moc.save()
-		shouldNavigate = true
-
 	}
 }
 
