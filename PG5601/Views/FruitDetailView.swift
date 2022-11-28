@@ -17,9 +17,8 @@ struct FruitDetailView: View {
 
     var body: some View {
         ZStack {
-            Color.black.opacity(0.2)
-			AnimatedBackgroundView(fruit)
-			AnimatedFruit(fruitCount: fetchRequest.filter({ $0.date! > lastThirtyDays }).count, fruitName: fruit.name).zIndex(1).id(viewID)
+			AnimatedBackgroundView(fruit).zIndex(1)
+			AnimatedFruit(fruitCount: fetchRequest.filter({ $0.date! > lastThirtyDays }).count, fruitName: fruit.name).zIndex(3).id(viewID)
             VStack {
                 ExtractedView(fruitCount: fetchRequest.filter({ $0.date! > lastThirtyDays }).count, fruitName: fruit.name)
 				
@@ -51,7 +50,7 @@ struct FruitDetailView: View {
 					}.buttonStyle(.bordered)
 					EatFruitButton(fruit)
 				}
-            }
+			}.zIndex(2)
                     .padding()
                     .navigationTitle(fruit.name)
                     .navigationBarTitleDisplayMode(.inline)
@@ -139,7 +138,7 @@ struct AnimatedFruit: View {
 
         ForEach(0..<fruitCount, id: \.self) { _ in
             Text(fruitEmoji(fruitName: fruitName))
-                    .font(Font.custom("San Francisco", size: animate ? 3.6 : 72.0))
+				.font(.system(size: animate ? 3.6 : 72.0))
                     .rotationEffect(.degrees(animate ? 1080 : 0))
                     .offset(x: Double.random(in: -200..<200), y: animate ? 500 : Double.random(in: -900 ... -400))
                     .task({
