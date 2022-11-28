@@ -9,7 +9,7 @@ struct FruitView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            NavigationLink(destination: FruitDetailView(fruit)) {
+			NavigationLink(destination: FruitDetailView(fruit)) {
                 HStack {
                     Rectangle()
                             .frame(width: 50, height: 50)

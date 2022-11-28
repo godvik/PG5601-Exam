@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var datamodel: DataModel
+
     var body: some View {
         TabView {
             ListAllView().tabItem() {

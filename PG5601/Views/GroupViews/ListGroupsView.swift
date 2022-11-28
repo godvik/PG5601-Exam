@@ -8,7 +8,7 @@ struct ListGroupsView: View {
     @State private var order: [String] = []
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 Picker("", selection: $segment) {
                     Text("Family").tag(0)

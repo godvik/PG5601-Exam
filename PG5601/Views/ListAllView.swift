@@ -3,7 +3,7 @@ import SwiftUI
 struct ListAllView: View {
     @EnvironmentObject var datamodel: DataModel
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(datamodel.Fruits.sorted(by: { $0.id < $1.id })) {
                     fruit in

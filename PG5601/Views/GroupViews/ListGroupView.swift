@@ -10,7 +10,7 @@ struct ListGroupView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
 				ForEach(datamodel.Fruits) {
                     fruit in

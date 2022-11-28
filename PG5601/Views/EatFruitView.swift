@@ -2,7 +2,7 @@ import SwiftUI
 
 struct EatFruitView: View {
 	@State private var date = Date()
-	@State private var shouldNavigate = false
+	@State private var fruitAdded = false
 	@Environment(\.presentationMode) var presentationMode
 	@Environment(\.managedObjectContext) var moc
 	var fruit: Fruit
@@ -29,6 +29,7 @@ struct EatFruitView: View {
 			}
 					.scrollContentBackground(.hidden)
 
+
 			VStack {
 				Text("When did you eat the fruit?").font(.title3).padding()
 				HStack{
@@ -48,15 +49,16 @@ struct EatFruitView: View {
 			HStack {
 				Button("Cancel",  role: .destructive, action: { self.presentationMode.wrappedValue.dismiss() } )
 					.buttonStyle(.bordered)
-
-				Button(action: eatFruit) {
-					Label("Log fruit", systemImage: "calendar.badge.plus")
-				}
+					Button(action: {eatFruit(); fruitAdded = true}) {
+							Label("Log fruit", systemImage: "calendar.badge.plus")
+						}
 					.buttonStyle(.bordered)
+
 			}
 
 		}.padding()
 			.navigationBarTitle(fruit.name)
+
     }
 
 	func navigateBack() {
@@ -77,6 +79,7 @@ struct EatFruitView: View {
 		newConsumption.calories = Int16(fruit.nutritions.calories)
 		newConsumption.date = date
 		try? moc.save()
+
 	}
 }
 
