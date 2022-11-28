@@ -1,7 +1,9 @@
 import SwiftUI
+import AlertToast
 
 struct EatFruitView: View {
 	@State private var date = Date()
+	@State private var showToast = false
 	@Environment(\.presentationMode) var presentationMode
 	@Environment(\.managedObjectContext) var moc
 	@State var shouldNavigate = false
@@ -10,6 +12,7 @@ struct EatFruitView: View {
 	init(_ fruit: Fruit) {
 		self.fruit = fruit
 	}
+	
     var body: some View {
 		NavigationStack {
 			VStack {
@@ -51,6 +54,8 @@ struct EatFruitView: View {
 					Button("Cancel",  role: .destructive, action: { presentationMode.wrappedValue.dismiss() } )
 						.buttonStyle(.bordered)
 
+
+
 						Button(action: eatFruit) {
 								Label("Log fruit", systemImage: "calendar.badge.plus")
 							}
@@ -59,13 +64,12 @@ struct EatFruitView: View {
 							destination: ListAllView(),
 							isActive: $shouldNavigate) {}
 							.hidden())
-
-
-
 				}
-
 			}.padding()
-				.navigationBarTitle(fruit.name)
+			.navigationBarTitle(fruit.name)
+			.toast(isPresenting: $showToast){
+				AlertToast(type: .complete(Color.green), title: "Fruit logged!")
+			}
 		}
 
     }
@@ -88,7 +92,10 @@ struct EatFruitView: View {
 		newConsumption.calories = Int16(fruit.nutritions.calories)
 		newConsumption.date = date
 		try? moc.save()
-		shouldNavigate.toggle()
+		showToast.toggle()
+		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+			shouldNavigate.toggle()
+		}
 
 	}
 }

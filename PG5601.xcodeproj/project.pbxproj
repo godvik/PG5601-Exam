@@ -10,6 +10,7 @@
 		97086BF1293257B800E03D63 /* FruitDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97086BEF293257B800E03D63 /* FruitDatabase.xcdatamodeld */; };
 		97110E2329311AF7007BD6D5 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97110E2229311AF7007BD6D5 /* DataController.swift */; };
 		97110E2829324432007BD6D5 /* EatFruitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97110E2729324432007BD6D5 /* EatFruitView.swift */; };
+		974C133D2935226600AF6CF0 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 974C133C2935226600AF6CF0 /* AlertToast */; };
 		979AFA3A292CFBEB00FA664F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979AFA39292CFBEB00FA664F /* MainView.swift */; };
 		979AFA3C292CFE4600FA664F /* ListGroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979AFA3B292CFE4600FA664F /* ListGroupsView.swift */; };
 		979AFA3E292CFE4E00FA664F /* LogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979AFA3D292CFE4E00FA664F /* LogView.swift */; };
@@ -49,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				974C133D2935226600AF6CF0 /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +144,9 @@
 			dependencies = (
 			);
 			name = PG5601;
+			packageProductDependencies = (
+				974C133C2935226600AF6CF0 /* AlertToast */,
+			);
 			productName = PG5601;
 			productReference = 97CB2ADF292B825500CEE17C /* PG5601.app */;
 			productType = "com.apple.product-type.application";
@@ -170,6 +175,9 @@
 				Base,
 			);
 			mainGroup = 97CB2AD6292B825500CEE17C;
+			packageReferences = (
+				974C133B2935226600AF6CF0 /* XCRemoteSwiftPackageReference "AlertToast" */,
+			);
 			productRefGroup = 97CB2AE0292B825500CEE17C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -409,6 +417,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		974C133B2935226600AF6CF0 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		974C133C2935226600AF6CF0 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 974C133B2935226600AF6CF0 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		97086BEF293257B800E03D63 /* FruitDatabase.xcdatamodeld */ = {
