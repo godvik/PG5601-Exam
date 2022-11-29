@@ -3,11 +3,8 @@ import Foundation
 struct LogView: View {
 	@FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Consumption.date, ascending: false)]) var consumedFruits: FetchedResults<Consumption>
 	@State private var dates: [String] = []
-	@State private var shouldUpdate = false
-
-
-
 	@Environment(\.managedObjectContext) var moc
+	@EnvironmentObject var router: Router
 
 	func removeFruit(at offsets: IndexSet) {
 		for index in offsets {
@@ -22,6 +19,7 @@ struct LogView: View {
 	}
 
 	func refreshView() {
+		// Hvis alle frukter på en dato er slettet, slett datoen fra dates arrayet slik at seksjonen fjernes
 		for date in dates {
 			if(consumedFruits.filter({ $0.date?.formatted(.dateTime.day().month(.wide).year()) == date }).count == 0) {
 				dates.removeAll(where: { $0 == date })
@@ -35,6 +33,7 @@ struct LogView: View {
 		VStack{
 			VStack {
 				if(!dates.isEmpty){
+					// For hver dato i dates, opprett en Section og fyll den med frukt logget på denne datoen
 					List(dates, id: \.self) { date in
 							Section(header: Text(date)) {
 								ForEach(consumedFruits.filter({ $0.date?.formatted(.dateTime.day().month(.wide).year()) == date })) { fruit in
@@ -45,6 +44,7 @@ struct LogView: View {
 											 refreshView()
 										}
 								VStack{
+									// Sjekk og summer alle nutritions logget på denne dagen
 											HStack {
 												Spacer()
 												Text("Total").font(.title)
@@ -81,10 +81,11 @@ struct LogView: View {
 			}
 			}
 			.task {
-				separateDates()
+				extractDates()
 			}
 	}
-	func separateDates() {
+	func extractDates() {
+		// Sjekker hver frukt og lagrer datoen i "dates" array uten hvis datoen ikke er der fra før i formatet "20 November 2022"
 		for fruit in consumedFruits {
 			if(!dates.contains((fruit.date?.formatted(.dateTime
 				.day().month(.wide).year()))!)) {
@@ -93,18 +94,5 @@ struct LogView: View {
 			}
 		}
 	}
-
-
-
-
 }
 
-
-
-
-
-struct LogView_Previews: PreviewProvider {
-    static var previews: some View {
-        LogView()
-    }
-}

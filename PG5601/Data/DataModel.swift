@@ -1,10 +1,9 @@
 import Foundation
 import SwiftUI
 
-let baseUrl = "https://fruityvice.com/api/fruit/"
-
 @MainActor final class DataModel: ObservableObject {
     @Published var Fruits: [Fruit] = []
+	let baseUrl = "https://fruityvice.com/api/fruit/"
 
 	func loadData(endpoint: String ) async {
         guard let apiUrl = URL(string: baseUrl + endpoint) else {
@@ -67,14 +66,14 @@ func fruitEmoji(fruitName: String) -> String {
 
 
 
-struct Fruit: Decodable, Identifiable {
+struct Fruit: Decodable, Identifiable, Hashable {
     let id: Int
     let order, genus, name, family: String
     let nutritions: Nutritions
 }
 
 
-struct Nutritions: Codable {
+struct Nutritions: Codable, Hashable {
     let sugar, protein, fat, carbohydrates: Double
 	let calories: Int
 }

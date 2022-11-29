@@ -3,10 +3,10 @@ import AlertToast
 
 struct EatFruitView: View {
 	@State private var date = Date()
+	@EnvironmentObject var router: Router
 	@State private var showToast = false
 	@Environment(\.presentationMode) var presentationMode
 	@Environment(\.managedObjectContext) var moc
-	@State var shouldNavigate = false
 	var fruit: Fruit
 
 	init(_ fruit: Fruit) {
@@ -14,69 +14,29 @@ struct EatFruitView: View {
 	}
 	
     var body: some View {
-		NavigationStack {
 			VStack {
-
 				List {
-					Section("Categories") {
-						FruityView(name: "Family", nutrition: fruit.family)
-						FruityView(name: "Order", nutrition: fruit.order)
-						FruityView(name: "Genus", nutrition: fruit.genus)
-					}
-					Section("Nutrition per 100 grams") {
-						FruityView(name: "Carbohydrates", nutrition: fruit.nutritions.carbohydrates.formatted(), property: "g")
-						FruityView(name: "Protein", nutrition: fruit.nutritions.protein.formatted(), property: "g")
-						FruityView(name: "Fat", nutrition: fruit.nutritions.fat.formatted(), property: "g")
-						FruityView(name: "Calories", nutrition: fruit.nutritions.calories.formatted(), property: "kcal")
-						FruityView(name: "Sugar", nutrition: fruit.nutritions.sugar.formatted(), property: "g")
-					}
+					FruitDetails(fruit: fruit)
 				}
 						.scrollContentBackground(.hidden)
-
-
-				VStack {
-					Text("When did you eat the fruit?").font(.title3).padding()
-					HStack{
-						Spacer()
-						DatePicker(
-								"",
-								selection: $date,
-								displayedComponents: [.date, .hourAndMinute]
-							)
-						.labelsHidden()
-						.datePickerStyle(.compact)
-						Spacer()
-
-					}
-				}.padding()
+				LogTime(date: $date)
 				Spacer()
 				HStack {
 					Button("Cancel",  role: .destructive, action: { presentationMode.wrappedValue.dismiss() } )
 						.buttonStyle(.bordered)
-
-
-
 						Button(action: eatFruit) {
 								Label("Log fruit", systemImage: "calendar.badge.plus")
 							}
 						.buttonStyle(.bordered)
-						.overlay(NavigationLink(
-							destination: ListAllView(),
-							isActive: $shouldNavigate) {}
-							.hidden())
+
 				}
 			}.padding()
 			.navigationBarTitle(fruit.name)
 			.toast(isPresenting: $showToast){
 				AlertToast(type: .complete(Color.green), title: "Fruit logged!")
+				// Har tatt i bruk en ekstern pakke kalt AlertToast for å vise en fin bekreftelse
 			}
-		}
-
     }
-
-	func navigateBack() {
-
-	}
 
 	func eatFruit() {
 		let newConsumption = Consumption(context: moc)
@@ -92,16 +52,36 @@ struct EatFruitView: View {
 		newConsumption.calories = Int16(fruit.nutritions.calories)
 		newConsumption.date = date
 		try? moc.save()
+
+		// Vis bekreftelsestoast som varer i 2sek. Vent derfor 2sek før man popper tilbake til rootView
 		showToast.toggle()
 		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-			shouldNavigate.toggle()
+			if(router.path.count >= 1) {
+				router.path.removeLast(router.path.count)
+			} else if (router.categoryPath.count >= 1) {
+				router.categoryPath.removeLast(router.categoryPath.count)
+			}
 		}
-
 	}
 }
 
-struct EatFruitView_Previews: PreviewProvider {
-    static var previews: some View {
-        EatFruitView(fruit)
-    }
+
+struct LogTime: View {
+	@Binding var date: Date
+	var body: some View {
+		VStack {
+			Text("When did you eat the fruit?").font(.title3).padding()
+			HStack{
+				Spacer()
+				DatePicker(
+					"",
+					selection: $date,
+					displayedComponents: [.date, .hourAndMinute]
+				)
+				.labelsHidden()
+				.datePickerStyle(.compact)
+				Spacer()
+			}
+		}.padding()
+	}
 }

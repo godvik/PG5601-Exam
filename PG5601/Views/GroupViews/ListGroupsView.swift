@@ -2,13 +2,14 @@ import SwiftUI
 
 struct ListGroupsView: View {
     @EnvironmentObject var datamodel: DataModel
+	@EnvironmentObject var router: Router
     @State private var segment = 0
     @State private var families: [String] = []
     @State private var genus: [String] = []
     @State private var order: [String] = []
 
     var body: some View {
-        NavigationStack {
+		NavigationStack(path: $router.categoryPath){
             VStack {
                 Picker("", selection: $segment) {
                     Text("Family").tag(0)
@@ -35,7 +36,6 @@ struct ListGroupsView: View {
                             ForEach(genus, id: \.self) {
                                 genus in
                                 GroupSegmentView(genus, "genus")
-
                             }
                         case 2:
                             Spacer()
@@ -53,18 +53,15 @@ struct ListGroupsView: View {
                     }
                             .task {
                                 await datamodel.loadData(endpoint: "all")
-                                separate()
+                                splitIntoCategories()
                             }
                 }
-
-
-                Spacer()
-
+				Spacer()
             }
         }
     }
 
-    func separate() {
+    func splitIntoCategories() {
         for fruit in datamodel.Fruits {
             if (!families.contains(fruit.family)) {
                 families.append(fruit.family)
@@ -79,8 +76,3 @@ struct ListGroupsView: View {
     }
 }
 
-struct ListGroupsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ListGroupsView().environmentObject(DataModel())
-    }
-}
